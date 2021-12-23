@@ -11,6 +11,7 @@ ARG SOLUTION_IMAGE
 
 FROM ${DEBUG_BASE_IMAGE} as debug
 WORKDIR /solution/src
+EXPOSE 80
 ENTRYPOINT ["dotnet", "watch", "-v", "--project", ".\\Project\\MvpSite\\rendering", "run", "--no-launch-profile"]
 
 FROM ${SOLUTION_IMAGE} as solution
