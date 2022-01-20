@@ -26,7 +26,6 @@ services:
     scale: 0
 
   mvp-rendering:
-    container_name: mvp-rendering
     image: ${MVP_DOCKER_REGISTRY}mvp-rendering:${SITECORE_VERSION}
     restart: ${DOCKER_RESTART}
     build:
@@ -70,6 +69,7 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost/healthz"]
       interval: 60s
       timeout: 30s
+    scale: 0
 
   sugcon-rendering:
     container_name: sugcon-rendering
@@ -170,8 +170,7 @@ services:
       Okta__ClientSecret: ${OKTA_CLIENT_SECRET}
       Okta__AuthorizationServerId: ${OKTA_AUTH_SERVER_ID}
       Okta__RedirectUri: "https://${CD_HOST}/identity/externallogincallback"
-      Sitecore__ExternalCdUrl: "${CD_HOST}"
-      MVP_RENDERING_HOST_PUBLIC_URI: ${MVP_RENDERING_HOST}      
+      Sitecore__ExternalCdUrl: "${CD_HOST}"    
     mem_limit: ${MEM_LIMIT_CD:-2GB}      
     entrypoint: powershell.exe -Command "& C:\tools\entrypoints\iis\Development.ps1"
     labels:
@@ -213,7 +212,6 @@ services:
       Sitecore__ExternalCdUrl: "${CD_HOST}"
       SSC__AllowAnonymousAccess: "${SSC_AllowAnonymousAccess}"
       SSC__AnonymousUser: "${SSC_AnonymousUser}"
-      MVP_RENDERING_HOST_PUBLIC_URI: https://${MVP_RENDERING_HOST}
     mem_limit: ${MEM_LIMIT_CD:-4GB}        
     entrypoint: powershell.exe -Command "& C:\tools\entrypoints\iis\Development.ps1"
  
