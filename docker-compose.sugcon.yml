@@ -1,4 +1,11 @@
 version: "2.4"
+
+## Usage: 
+#   $> docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.sugcon.yml up -d
+# .. and to bring all containers down again
+#   $> docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.sugcon.yml down
+##
+
 services:
   traefik:
     depends_on:
@@ -7,10 +14,8 @@ services:
       # sugcon-anz-rendering:
       #   condition: service_started
 
-## Usage: 
-#   $> docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.sugcon.yml up -d
-# .. and to bring all containers down again
-#   $> docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.sugcon.yml down
+  # mvp-rendering:
+  #   scale: 0
 
   sugcon-eu-rendering:
     image: ${MVP_DOCKER_REGISTRY}sugcon-rendering:${SITECORE_VERSION}
@@ -79,7 +84,7 @@ services:
   cm:
     environment:
       SUGCON_EU_RENDERING_HOST_PUBLIC_URI: https://${SUGCON_EU_RENDERING_HOST}
-#      SUGCON_ANZ_RENDERING_HOST_PUBLIC_URI: https://${SUGCON_ANZ_RENDERING_HOST}
+#      SUGCON_ANZ_RENDERING_HOST_PUBLIC_URI: https://${SUGCON_ANZ_RENDERING_HOST}  
 
   cd:
     environment:
